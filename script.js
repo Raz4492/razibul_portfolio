@@ -1,12 +1,15 @@
 // Navigation functionality
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const navbar = document.getElementById('navbar');
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownMenu = dropdown?.querySelector('.dropdown-menu');
+    const dropdownItems = dropdownMenu?.querySelectorAll('.dropdown-item');
 
     // Navbar scroll effect
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
@@ -15,37 +18,70 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Mobile menu toggle
-    hamburger.addEventListener('click', function() {
+    hamburger.addEventListener('click', function () {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
         document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
     });
 
-    // Close mobile menu when clicking on a link
+    // Close mobile menu when clicking on a nav link
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function () {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
             document.body.style.overflow = 'auto';
         });
     });
 
-    // Smooth scrolling for navigation links
+    // Smooth scrolling for all nav links
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
+        link.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+            if (targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
+
+    // Smooth scroll for dropdown items too
+    dropdownItems?.forEach(item => {
+        item.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+                // Close menus on mobile
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    });
+
+    // Toggle dropdown on mobile
+    if (dropdown && dropdownMenu) {
+        dropdown.addEventListener('click', function (e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdownMenu.classList.toggle('active');
+            }
+        });
+    }
 
     // Active navigation link highlighting
     function updateActiveLink() {
@@ -56,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
             const sectionId = section.getAttribute('id');
-            
+
             if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
                 navLinks.forEach(link => {
                     link.classList.remove('active');
@@ -69,6 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     window.addEventListener('scroll', updateActiveLink);
+
 
     // Intersection Observer for animations
     const observerOptions = {
@@ -100,6 +137,73 @@ document.addEventListener('DOMContentLoaded', function() {
         section.classList.add('fade-in');
         observer.observe(section);
     });
+
+    // Publications section animation
+    function animatePublications() {
+        const publicationItems = document.querySelectorAll('.publication-item');
+        
+        publicationItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('visible');
+            }, index * 200);
+        });
+    }
+    function animateAchievements() {
+        const achievementItems = document.querySelectorAll('.achievement-item');
+
+        achievementItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('visible');
+            }, index * 200);
+        });
+    }
+  
+    function animateCertifications() {
+        const certificationItems = document.querySelectorAll('.certification-item');
+
+        certificationItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('visible');
+            }, index * 200);
+        });
+    }
+    function animateLeadership() {
+        const leadershipItems = document.querySelectorAll('.leadership-item');
+
+        leadershipItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('visible');
+            }, index * 200);
+        });
+    }   
+
+    function animateExperience() {
+        const experienceItems = document.querySelectorAll('.experience-item');
+
+        experienceItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('visible');
+            }, index * 200);
+        });
+    }
+    function animateEducation() {
+        const educationItems = document.querySelectorAll('.education-item');
+
+        educationItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('visible');
+            }, index * 200);
+        });
+    }
+    function animateProjects() {
+        const projectItems = document.querySelectorAll('.project-item');
+
+        projectItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('visible');
+            }, index * 200);
+        });
+    }
 
     // Skill bars animation
     function animateSkillBars() {
@@ -226,7 +330,6 @@ document.addEventListener('DOMContentLoaded', function() {
 function openModal(projectId) {
     const modal = document.getElementById('modal');
     const modalBody = document.getElementById('modal-body');
-    
     const projectData = {
         1: {
             title: 'Career Canvas Mobile App',
@@ -279,8 +382,76 @@ function openModal(projectId) {
                 github: '#',
                 demo: '#'
             }
-        }
-    };
+        },
+    4: {
+        title: 'Diabetes-Cancer Comorbidity Network',
+        description: 'Bioinformatics model analyzing disease interactions...',
+        features: [
+            'Network-based interaction analysis',
+            'Gene-disease relationship mapping',
+            'Visual disease network modeling',
+            'Comparative analytics for comorbidity clusters',
+            'CSV/JSON data export'
+        ],
+        technologies: ['Python', 'BioPython', 'NetworkX', 'Matplotlib'],
+        links: { github: '#', demo: '#' }
+    },
+    5: {
+        title: 'Solution Prediction ML Apps',
+        description: 'Streamlit apps for ML forecasting and analytics...',
+        features: [
+            'Real-time model predictions',
+            'User-friendly UI with Streamlit',
+            'Multi-model pipeline support',
+            'Integrated matplotlib charts',
+            'Exportable reports'
+        ],
+        technologies: ['Python', 'Streamlit', 'Scikit-learn', 'Matplotlib'],
+        links: { github: '#', demo: '#' }
+    },
+    6: {
+        title: 'E-commerce Mobile Application',
+        description: 'Cross-platform Flutter app for e-commerce...',
+        features: [
+            'User authentication',
+            'Real-time inventory sync',
+            'Payment integration',
+            'Product filtering & search',
+            'Firebase cloud backend'
+        ],
+        technologies: ['Flutter', 'Firebase', 'Bloc', 'Dart'],
+        links: { github: '#', demo: '#', playstore: '#' }
+    },
+    7: {
+        title: 'Point-of-Sale (POS) System',
+        description: 'Mobile POS with offline functionality...',
+        features: [
+            'Offline support',
+            'Barcode scanning',
+            'Sales reporting',
+            'Inventory control',
+            'Language localization'
+        ],
+        technologies: ['Flutter', 'Sqflite', 'Localization', 'Provider'],
+        links: { github: '#', demo: '#' }
+    },
+    8: {
+        title: 'HRMS Management System',
+        description: 'Full-stack HR platform with admin and employee dashboards...',
+        features: [
+            'Attendance and leave tracking',
+            'Role-based access control',
+            'Payroll module',
+            'Data export (CSV/PDF)',
+            'Responsive admin dashboard'
+        ],
+        technologies: ['.NET Core', 'Angular', 'SQL Server', 'JWT Auth'],
+        links: { github: '#', demo: '#' }
+    }
+};
+
+    
+    
     
     const project = projectData[projectId];
     
