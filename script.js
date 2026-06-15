@@ -447,7 +447,23 @@ function openModal(projectId) {
         ],
         technologies: ['.NET Core', 'Angular', 'SQL Server', 'JWT Auth'],
         links: { github: '#', demo: '#' }
-    }
+    },
+    9: {
+    title: 'Corporate Internet Banking Platform (NCC ICON)',
+    description: 'Enterprise-grade corporate internet banking system including backend APIs, transaction gateway services, and cross-platform mobile applications for Android and iOS, enabling secure and seamless digital banking operations.',
+    features: [
+        'Corporate fund transfer and transaction processing',
+        'Account management and beneficiary management',
+        'Secure transaction gateway integration',
+        'Approval workflow and authorization system',
+        'Core banking system (CBS) integration',
+        'Real-time transaction status and notifications',
+        'Audit logging and security controls',
+        'Cross-platform mobile banking app (Android & iOS)'
+    ],
+    technologies: ['ASP.NET Core', 'C#', 'REST API', 'Flutter', 'SQL Server', 'Banking Gateway', 'Clean Architecture', 'JWT Authentication'],
+    links: { github: '#', demo: '#' }
+}
 };
 
     
